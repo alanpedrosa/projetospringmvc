@@ -1,0 +1,61 @@
+﻿@model ProjetoMVC01.Presentation.Models.TarefasRelatorioModel
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h5>Relatório de tarefas</h5>
+    <p>Informe o período de datas e o tipo de relatório desejado.</p>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row mt-2">
+            <div class="col-md-2">
+                <label>Data de início:</label>
+                @Html.TextBoxFor(model => model.DataInicio, new { @class = "form-control", @type = "date" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.DataInicio)
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>Data de término:</label>
+                @Html.TextBoxFor(model => model.DataTermino, new { @class = "form-control", @type = "date" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.DataTermino)
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label>Selecione o formato do relatório:</label>
+                <br />
+
+                @Html.RadioButtonFor(model => model.Formato, "EXCEL") <label>Planilha Excel</label>
+                <br />
+
+                @Html.RadioButtonFor(model => model.Formato, "PDF") <label>Documento PDF</label>
+                <br />
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Formato)
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <input type="submit" value="Gerar Relatório" class="btn btn-success" />
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+

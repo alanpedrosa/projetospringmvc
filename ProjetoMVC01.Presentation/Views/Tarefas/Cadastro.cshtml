@@ -1,0 +1,100 @@
+﻿@model ProjetoMVC01.Presentation.Models.TarefasCadastroModel
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h5>Cadastro de tarefas</h5>
+    <p>Preencha o formulário abaixo para incluir uma tarefa.</p>
+
+    @using (Html.BeginForm())
+    {
+        <!-- LINHA -->
+        <div class="row mt-2">
+            <div class="col-md-6">
+
+                <label>Nome da tarefa:</label>
+                @Html.TextBoxFor(model => model.Nome,
+                    new { @class = "form-control" })
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Nome)
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <label>Data da tarefa:</label>
+                @Html.TextBoxFor(model => model.Data,
+                    new { @class = "form-control", @type = "date" })
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Data)
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <label>Hora da tarefa:</label>
+                @Html.TextBoxFor(model => model.Hora,
+                    new { @class = "form-control", @type = "time" })
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Hora)
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LINHA -->
+        <div class="row mt-3">
+            <div class="col-md-9">
+
+                <label>Descrição da tarefa:</label>
+                @Html.TextAreaFor(model => model.Descricao,
+                    new { @class = "form-control" })
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Descricao)
+                </div>
+
+            </div>
+            <div class="col-md-3">
+
+                <label>Prioridade da tarefa:</label>
+                <br />
+
+                @Html.RadioButtonFor(model => model.Prioridade, "1") <label>Baixa</label>
+                <br />
+
+                @Html.RadioButtonFor(model => model.Prioridade, "2") <label>Média</label>
+                <br />
+
+                @Html.RadioButtonFor(model => model.Prioridade, "3") <label>Alta</label>
+                <br />
+
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Prioridade)
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LINHA -->
+        <div class="row mt-3">
+            <div class="col-md-12">
+
+                <input type="submit" value="Realizar Cadastro" class="btn btn-success" />
+
+            </div>
+        </div>
+    }
+
+ 
+
+</div>
+
+
+

@@ -1,0 +1,103 @@
+﻿@model ProjetoMVC01.Presentation.Models.AccountRegisterModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+
+    <!-- folha de estilos CSS do bootstrap -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body class="bg-secondary">
+
+    <div class="row">
+        <div class="col-md-4 offset-4">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h3>Criar conta de usuário</h3>
+                        <p>Preencha os campos e crie sua conta de acesso.</p>
+                    </div>
+
+                    <hr />
+
+                    @if (TempData["MensagemSucesso"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Sucesso!</strong> @TempData["MensagemSucesso"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    else if (TempData["MensagemAlerta"] != null)
+                    {
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Alerta!</strong> @TempData["MensagemAlerta"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    else if (TempData["MensagemErro"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Erro!</strong> @TempData["MensagemErro"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    @using (Html.BeginForm())
+                    {
+                        <label>Nome do usuário:</label>
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                        <div class="text-danger">
+                            @Html.ValidationMessageFor(model => model.Nome)
+                        </div>
+                        <br />
+
+                        <label>Email de acesso:</label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        <div class="text-danger">
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        <br />
+
+                        <label>Senha de acesso:</label>
+                        @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
+                        <div class="text-danger">
+                            @Html.ValidationMessageFor(model => model.Senha)
+                        </div>
+                        <br />
+
+                        <label>Confirme sua senha:</label>
+                        @Html.PasswordFor(model => model.SenhaConfirmacao, new { @class = "form-control" })
+                        <div class="text-danger">
+                            @Html.ValidationMessageFor(model => model.SenhaConfirmacao)
+                        </div>
+                        <br />
+
+                        <div class="d-grid">
+                            <input type="submit" value="Realizar Cadastro" class="btn btn-dark" />
+                            <a href="/Account/Login" class="btn btn-light">Acessar Sistema</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- arquivos JS do bootstrap -->
+    <script src="~/js/bootstrap.js"></script>
+
+</body>
+</html>
+
+
+
+
+

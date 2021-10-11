@@ -1,0 +1,118 @@
+﻿@model ProjetoMVC01.Presentation.Models.DashboardModel
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h5>Seja bem vindo ao projeto</h5>
+    <p>Sistema desenvolvido em NET CORE MVC com DAPPER e SqlServer</p>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+
+            <p>
+                Você possui @Model.Tarefas.Count tarefa(s) marcada(s)
+                para hoje (@Model.DataAtual.ToString("dd/MM/yyyy")):
+            </p>
+
+            @if (Model.Tarefas.Count > 0)
+            {
+                <div class="mt-2 mb-2">
+                    Prioridade Baixa: @Model.TotalPrioridadeBaixa tarefa(s) <br />
+                    Prioridade Média: @Model.TotalPrioridadeMedia tarefa(s) <br />
+                    Prioridade Alta: @Model.TotalPrioridadeAlta tarefa(s)
+                </div>
+
+                <table class="table table-bordered table-sm table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome da tarefa</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Prioridade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Tarefas)
+                        {
+                            <tr>
+                                <td>@item.Nome</td>
+                                <td>@item.Data.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Hora</td>
+                                <td>
+                                    @if (item.Prioridade.ToString().Equals("BAIXA"))
+                                    {
+                                        <span class="badge bg-success">Baixa</span>
+                                    }
+                                    else if (item.Prioridade.ToString().Equals("MEDIA"))
+                                    {
+                                        <span class="badge bg-warning">Média</span>
+                                    }
+                                    else if (item.Prioridade.ToString().Equals("ALTA"))
+                                    {
+                                        <span class="badge bg-danger">Alta</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+        <div class="col-md-6">
+            <div id="grafico"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- desenhando um grafico para exibir os totais de tarefas -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<script>
+
+     var array = [];
+
+        //dados do gráfico
+        array.push(['ALTA', @Model.TotalPrioridadeAlta]);
+        array.push(['MEDIA', @Model.TotalPrioridadeMedia]);
+        array.push(['BAIXA', @Model.TotalPrioridadeBaixa]);
+
+        new Highcharts.Chart({
+            chart: {
+                type: 'pie',
+                renderTo: 'grafico'
+            },
+            title: {
+                text: 'Tarefas por prioridade em @Model.DataAtual.ToString("dd/MM/yyyy")'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '60%',
+                    dataLabels: {
+                        enable: true
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                data: array
+            }],
+            colors: ['#d9534f', '#f0ad4e', '#5cb85c']
+        });
+
+</script>
+
+
+
+
+
