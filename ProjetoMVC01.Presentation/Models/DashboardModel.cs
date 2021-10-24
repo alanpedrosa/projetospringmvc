@@ -16,8 +16,3 @@ namespace ProjetoMVC01.Presentation.Models
         public int TotalPrioridadeAlta { get; set; }
     }
 }
-
-
-
-
-

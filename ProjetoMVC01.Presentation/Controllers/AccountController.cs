@@ -127,7 +127,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                 TempData["Email"] = usuario.Email;
                 TempData["DataCadastro"] = usuario.DataCadastro.ToString("dd/MM/yyyy HH:mm");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 TempData["MensagemErro"] = e.Message;
             }
@@ -158,7 +158,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         public IActionResult ChangePassword(AccountChangePasswordModel model)
         {
             //verificando se os campos passaram nas validações
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 try
                 {
@@ -166,7 +166,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                     var usuario = _usuarioRepository.Get(User.Identity.Name);
 
                     //verificar se a senha atual informada está correta
-                    if (_usuarioRepository.Get(usuario.Email, model.SenhaAtual) != null)
+                    if(_usuarioRepository.Get(usuario.Email, model.SenhaAtual) != null)
                     {
                         //alterar a senha do usuario
                         usuario.Senha = model.NovaSenha;
@@ -180,7 +180,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                         TempData["MensagemAlerta"] = "Senha atual está incorreta.";
                     }
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -199,7 +199,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         [HttpPost] //recebe o evento SUBMIT do formulário
         public IActionResult PasswordRecover(AccountPasswordRecoverModel model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 try
                 {
@@ -207,7 +207,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                     var usuario = _usuarioRepository.Get(model.Email);
 
                     //verificar se o usuario foi encontrado
-                    if (usuario != null)
+                    if(usuario != null)
                     {
                         //gerar uma nova senha para o usuario
                         usuario.Senha = new Random().Next(999999999).ToString();
@@ -243,7 +243,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                         throw new Exception("Endereço de email inválido.");
                     }
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -253,8 +253,3 @@ namespace ProjetoMVC01.Presentation.Controllers
         }
     }
 }
-
-
-
-
-

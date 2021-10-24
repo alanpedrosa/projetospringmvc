@@ -2,21 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>838b7038-cf39-4e06-9d3a-a84fa848d337</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjetoMVC.Repository\ProjetoMVC01.Repository.csproj" />
     <ProjectReference Include="..\ProjetoMVC01.Messages\ProjetoMVC01.Messages.csproj" />
     <ProjectReference Include="..\ProjetoMVC01.Reports.Excel\ProjetoMVC01.Reports.Excel.csproj" />
     <ProjectReference Include="..\ProjetoMVC01.Reports.Pdf\ProjetoMVC01.Reports.Pdf.csproj" />
+    <ProjectReference Include="..\ProjetoMVC01.Repository\ProjetoMVC01.Repository.csproj" />
   </ItemGroup>
 
 </Project>

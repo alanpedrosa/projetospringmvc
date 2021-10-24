@@ -21,8 +21,3 @@ namespace ProjetoMVC01.Presentation.Models
         public string NovaSenhaConfirmacao { get; set; }
     }
 }
-
-
-
-
-

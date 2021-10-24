@@ -7,7 +7,6 @@ using ProjetoMVC01.Reports.Pdf;
 using ProjetoMVC01.Repository.Entities;
 using ProjetoMVC01.Repository.Enums;
 using ProjetoMVC01.Repository.Interfaces;
-using ProjetoMVC01.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +18,11 @@ namespace ProjetoMVC01.Presentation.Controllers
     public class TarefasController : Controller
     {
         //atributos
-        private readonly TarefaRepository _tarefaRepository;
+        private readonly ITarefaRepository _tarefaRepository;
         private readonly IUsuarioRepository _usuarioRepository;
 
         //construtor para inicialização dos atributos da classe
-        public TarefasController(TarefaRepository tarefaRepository, IUsuarioRepository usuarioRepository)
+        public TarefasController(ITarefaRepository tarefaRepository, IUsuarioRepository usuarioRepository)
         {
             _tarefaRepository = tarefaRepository;
             _usuarioRepository = usuarioRepository;
@@ -39,7 +38,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         public IActionResult Cadastro(TarefasCadastroModel model)
         {
             //verificar se todos os campos da model passaram nas validações
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 try
                 {
@@ -62,7 +61,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                     TempData["MensagemSucesso"] = $"Tarefa {tarefa.Nome}, cadastrado com sucesso.";
                     ModelState.Clear();
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -81,7 +80,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         public IActionResult Consulta(TarefasConsultaModel model)
         {
             //verificar se todos os campos passaram nas validações
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 try
                 {
@@ -95,7 +94,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                     //consultar as tarefas e armazenar o resultado obtido
                     model.Tarefas = _tarefaRepository.GetByDatas(dataMin, dataMax, usuario.IdUsuario);
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -114,7 +113,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         [HttpPost]
         public IActionResult Relatorio(TarefasRelatorioModel model)
         {
-            if (ModelState.IsValid) //verificar se os campos passaram nas validações..
+            if(ModelState.IsValid) //verificar se os campos passaram nas validações..
             {
                 try
                 {
@@ -129,7 +128,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                     var tarefas = _tarefaRepository.GetByDatas(dataInicio, dataTermino, usuario.IdUsuario);
 
                     //verificar o formato do relatorio selecionado..
-                    switch (model.Formato)
+                    switch(model.Formato)
                     {
                         case "EXCEL":
 
@@ -150,7 +149,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                             return File(pdf, "application/pdf", "tarefas.pdf");
                     }
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -177,7 +176,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                 model.Descricao = tarefa.Descricao;
                 model.Prioridade = ((int)tarefa.Prioridade).ToString();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 TempData["MensagemErro"] = e.Message;
             }
@@ -188,7 +187,7 @@ namespace ProjetoMVC01.Presentation.Controllers
         [HttpPost]
         public IActionResult Edicao(TarefasEdicaoModel model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 try
                 {
@@ -209,7 +208,7 @@ namespace ProjetoMVC01.Presentation.Controllers
 
                     TempData["MensagemSucesso"] = $"Tarefa {tarefa.Nome}, atualizado com sucesso.";
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     TempData["MensagemErro"] = e.Message;
                 }
@@ -236,7 +235,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                 //mensagem na página
                 TempData["MensagemSucesso"] = $"Tarefa {tarefa.Nome}, excluída com sucesso.";
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 TempData["MensagemErro"] = e.Message;
             }
@@ -247,8 +246,3 @@ namespace ProjetoMVC01.Presentation.Controllers
 
     }
 }
-
-
-
-
-

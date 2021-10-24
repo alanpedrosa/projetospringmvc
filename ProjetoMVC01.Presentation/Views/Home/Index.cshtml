@@ -14,7 +14,7 @@
 
             <p>
                 Você possui @Model.Tarefas.Count tarefa(s) marcada(s)
-                para hoje (@Model.DataAtual.ToString("dd/MM/yyyy")):
+                para hoje (@Model.DataAtual.ToString("dd/MM/yyyy"))
             </p>
 
             @if (Model.Tarefas.Count > 0)
@@ -63,7 +63,10 @@
 
         </div>
         <div class="col-md-6">
-            <div id="grafico"></div>
+            @if (Model.Tarefas.Count > 0)
+            {
+                <div id="grafico"></div>
+            }
         </div>
     </div>
 
@@ -111,8 +114,3 @@
         });
 
 </script>
-
-
-
-
-

@@ -11,24 +11,30 @@ using System.Threading.Tasks;
 namespace ProjetoMVC01.Repository.Repositories
 {
     /// <summary>
-    /// Classe de repositorio de dados para Tarefa
+    /// Classe de repositorio de dados para Usuario
     /// </summary>
-    public class TarefaRepository : ITarefaRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         //atributo
         private readonly string _connectionstring;
 
         //construtor para receber o valor da connectionstring
-        public TarefaRepository(string connectionstring)
+        public UsuarioRepository(string connectionstring)
         {
             _connectionstring = connectionstring;
         }
 
-        public void Create(Tarefa obj)
+        public void Create(Usuario obj)
         {
             var query = @"
-                    INSERT INTO TAREFA(IDTAREFA, NOME, DESCRICAO, DATA, HORA, PRIORIDADE, IDUSUARIO)
-                    VALUES(@IdTarefa, @Nome, @Descricao, @Data, @Hora, @Prioridade, @IdUsuario)
+                    INSERT INTO USUARIO(IDUSUARIO, NOME, EMAIL, SENHA, DATACADASTRO)
+                    VALUES(
+                        @IdUsuario,
+                        @Nome,
+                        @Email,
+                        CONVERT(VARCHAR(32), HASHBYTES('MD5', @Senha), 2),
+                        @DataCadastro
+                    )
                 ";
 
             using (var connection = new SqlConnection(_connectionstring))
@@ -37,19 +43,15 @@ namespace ProjetoMVC01.Repository.Repositories
             }
         }
 
-        public void Update(Tarefa obj)
+        public void Update(Usuario obj)
         {
             var query = @"
-                    UPDATE TAREFA
+                    UPDATE USUARIO 
                     SET
                         NOME = @Nome,
-                        DESCRICAO = @Descricao,
-                        DATA = @Data,
-                        HORA = @Hora,
-                        PRIORIDADE = @Prioridade
+                        EMAIL = @Email,
+                        SENHA = CONVERT(VARCHAR(32), HASHBYTES('MD5', @Senha), 2)
                     WHERE
-                        IDTAREFA = @IdTarefa
-                    AND
                         IDUSUARIO = @IdUsuario
                 ";
 
@@ -59,12 +61,11 @@ namespace ProjetoMVC01.Repository.Repositories
             }
         }
 
-        public void Delete(Tarefa obj)
+        public void Delete(Usuario obj)
         {
             var query = @"
-                    DELETE FROM TAREFA
-                    WHERE IDTAREFA = @IdTarefa
-                    AND IDUSUARIO = @IdUsuario
+                    DELETE FROM USUARIO
+                    WHERE IDUSUARIO = @IdUsuario
                 ";
 
             using (var connection = new SqlConnection(_connectionstring))
@@ -73,58 +74,64 @@ namespace ProjetoMVC01.Repository.Repositories
             }
         }
 
-        public List<Tarefa> GetAll()
+        public List<Usuario> GetAll()
         {
             var query = @"
-                    SELECT * FROM TAREFA
-                    ORDER BY 
-                        DATA DESC, 
-                        HORA DESC
+                    SELECT * FROM USUARIO
                 ";
 
             using (var connection = new SqlConnection(_connectionstring))
             {
                 return connection
-                    .Query<Tarefa>(query)
+                    .Query<Usuario>(query)
                     .ToList();
             }
         }
 
-        public Tarefa GetById(Guid id)
+        public Usuario GetById(Guid id)
         {
             var query = @"
-                    SELECT * FROM TAREFA
-                    WHERE IDTAREFA = @id
+                    SELECT * FROM USUARIO
+                    WHERE IDUSUARIO = @id
                 ";
 
             using (var connection = new SqlConnection(_connectionstring))
             {
                 return connection
-                    .Query<Tarefa>(query, new { id })
+                    .Query<Usuario>(query, new { id })
                     .FirstOrDefault();
             }
         }
 
-        public List<Tarefa> GetByDatas(DateTime dataMin, DateTime dataMax, Guid idUsuario)
+        public Usuario Get(string email)
         {
             var query = @"
-                    SELECT * FROM TAREFA
-                    WHERE DATA BETWEEN @dataMin AND @dataMax
-                    AND IDUSUARIO = @idUsuario
-                    ORDER BY DATA ASC, HORA ASC
+                    SELECT * FROM USUARIO
+                    WHERE EMAIL = @email
                 ";
 
             using (var connection = new SqlConnection(_connectionstring))
             {
                 return connection
-                    .Query<Tarefa>(query, new { dataMin, dataMax, idUsuario })
-                    .ToList();
+                    .Query<Usuario>(query, new { email })
+                    .FirstOrDefault();
+            }
+        }
+
+        public Usuario Get(string email, string senha)
+        {
+            var query = @"
+                    SELECT * FROM USUARIO
+                    WHERE EMAIL = @email
+                    AND SENHA = CONVERT(VARCHAR(32), HASHBYTES('MD5', @senha), 2)
+                ";
+
+            using (var connection = new SqlConnection(_connectionstring))
+            {
+                return connection
+                    .Query<Usuario>(query, new { email, senha })
+                    .FirstOrDefault();
             }
         }
     }
 }
-
-
-
-
-

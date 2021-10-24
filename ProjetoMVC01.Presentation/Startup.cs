@@ -39,7 +39,7 @@ namespace ProjetoMVC01.Presentation
             var connectionstring = Configuration.GetConnectionString("ProjetoMVC01");
 
             //inserir a connectionstring dentro da classe TarefaRepository (injeção de dependencia) 
-            services.AddTransient<TarefaRepository>
+            services.AddTransient<ITarefaRepository>
                 (config => new TarefaRepository(connectionstring));
 
             //inserir a connectionstring dentro da classe UsuarioRepository (injeção de dependencia)
@@ -76,8 +76,3 @@ namespace ProjetoMVC01.Presentation
         }
     }
 }
-
-
-
-
-

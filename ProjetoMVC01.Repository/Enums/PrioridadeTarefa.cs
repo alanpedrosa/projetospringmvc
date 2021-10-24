@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjetoMVC01.Repository.Enums
 {
+    /// <summary>
+    /// Tipo multivalorado para definir as prioridades de uma tarefa
+    /// </summary>
     public enum PrioridadeTarefa
     {
         BAIXA = 1,

@@ -18,8 +18,3 @@ namespace ProjetoMVC01.Presentation.Models
         public string Formato { get; set; }
     }
 }
-
-
-
-
-

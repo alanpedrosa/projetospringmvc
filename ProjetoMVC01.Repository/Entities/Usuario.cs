@@ -9,10 +9,8 @@ namespace ProjetoMVC01.Repository.Entities
     /// <summary>
     /// Classe de entidade para modelagem de Usuario
     /// </summary>
-
     public class Usuario
     {
-
         #region Propriedades
 
         public Guid IdUsuario { get; set; }
@@ -21,10 +19,6 @@ namespace ProjetoMVC01.Repository.Entities
         public string Senha { get; set; }
         public DateTime DataCadastro { get; set; }
 
-
-
         #endregion
-
-
     }
 }

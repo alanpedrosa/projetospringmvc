@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoMVC01.Presentation.Models;
 using ProjetoMVC01.Repository.Enums;
 using ProjetoMVC01.Repository.Interfaces;
-using ProjetoMVC01.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +14,11 @@ namespace ProjetoMVC01.Presentation.Controllers
     public class HomeController : Controller
     {
         //atributos
-        private readonly TarefaRepository _tarefarepository;
+        private readonly ITarefaRepository _tarefarepository;
         private readonly IUsuarioRepository _usuariorepository;
 
         //construtor para inicialização dos atributos
-        public HomeController(TarefaRepository tarefarepository, IUsuarioRepository usuariorepository)
+        public HomeController(ITarefaRepository tarefarepository, IUsuarioRepository usuariorepository)
         {
             _tarefarepository = tarefarepository;
             _usuariorepository = usuariorepository;
@@ -43,7 +42,7 @@ namespace ProjetoMVC01.Presentation.Controllers
                 model.TotalPrioridadeMedia = model.Tarefas.Count(t => t.Prioridade == PrioridadeTarefa.MEDIA);
                 model.TotalPrioridadeAlta = model.Tarefas.Count(t => t.Prioridade == PrioridadeTarefa.ALTA);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 TempData["MensagemErro"] = e.Message;
             }
@@ -53,8 +52,3 @@ namespace ProjetoMVC01.Presentation.Controllers
         }
     }
 }
-
-
-
-
-

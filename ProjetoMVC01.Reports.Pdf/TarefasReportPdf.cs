@@ -81,8 +81,3 @@ namespace ProjetoMVC01.Reports.Pdf
         }
     }
 }
-
-
-
-
-

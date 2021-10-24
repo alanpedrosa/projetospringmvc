@@ -27,8 +27,3 @@ namespace ProjetoMVC01.Presentation.Models
         public string SenhaConfirmacao { get; set; }
     }
 }
-
-
-
-
-

@@ -16,8 +16,3 @@ namespace ProjetoMVC01.Presentation.Models
         public string Senha { get; set; }
     }
 }
-
-
-
-
-

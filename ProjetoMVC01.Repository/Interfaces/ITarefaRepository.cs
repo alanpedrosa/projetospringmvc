@@ -8,21 +8,14 @@ using System.Threading.Tasks;
 namespace ProjetoMVC01.Repository.Interfaces
 {
     /// <summary>
-    /// Interface de repositorio especifica para Usuario
+    /// Interface de repositorio especifica para Tarefa
     /// </summary>
-
-    public interface IUsuarioRepository : IBaseRepository<Usuario>
+    public interface ITarefaRepository : IBaseRepository<Tarefa>
     {
+        #region Métodos abstratos
 
-        #region Métodos Abstratos
-
-        Usuario Get(string email);
-        Usuario Get(string email, string senha);
-
-
+        List<Tarefa> GetByDatas(DateTime dataMin, DateTime dataMax, Guid idUsuario);
 
         #endregion
-
-
     }
 }
